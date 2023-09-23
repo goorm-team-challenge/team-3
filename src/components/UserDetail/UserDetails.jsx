@@ -1,22 +1,18 @@
 import { Button, Collapse, Typography } from '@goorm-dev/gds-challenge';
 import { ChevronDownIcon, ChevronUpIcon } from '@goorm-dev/gds-icons';
 import { Card } from '@/components';
-import cn from 'classnames';
-import styles from './UserDetail.module.scss';
 import { useState } from 'react';
-import { userDetailTitle, userDetailQuestion } from '../../constants/UserDeatilList';
-import { userDetailAnswer } from '../../constants/UserDeatilList';
+import { userDetailAnswer } from '@/utils/userDetailAnswer';
+import { userDetailQuestion, userDetailTitle } from '@/constants/UserDeatilList';
 
 const UserDetails = ({ user, idx, total }) => {
     const [toggle, setToggle] = useState(false);
     const titles = Object.keys(userDetailTitle);
 
-    console.log(user);
-
     return (
         <>
-            <Card flat={total - 1 === idx ? 'top' : 'both'} between onClick={() => setToggle(!toggle)} className={cn(styles.selectBtn)}>
-                <Typography>참여자 {idx}. {user.name}</Typography>
+            <Card flat={total - 1 === idx ? 'top' : 'both'} between onClick={() => setToggle(!toggle)}>
+                <Typography>참여자 {total - idx}. {user.name}</Typography>
                 <ChevronDownIcon />
             </Card>
             <Collapse isOpen={toggle}>

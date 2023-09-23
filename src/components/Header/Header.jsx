@@ -25,7 +25,7 @@ const Header = () => {
 	};
 
 	const handleModalOpen = () => {
-		updateModalIndex(0);
+		updateModalIndex(3);
 		toggle();
 	};
 

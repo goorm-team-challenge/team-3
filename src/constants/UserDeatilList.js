@@ -19,33 +19,7 @@ export const userDetailQuestion = {
     freeMessage: 'Q. 구름톤 챌린지에 전달하고 싶은 말을 적어주세요. (주관식)',
 };
 
-export const userDetailAnswer = (answer, userInfo) => {
-    console.log('answer', answer);
-    console.log('userInfo', userInfo);
-    
-    if (['swMajored', 'groomUsed'].includes(answer)) {
-        return answer ? '예' : '아니요';
-    }
-
-    if (answer === 'groomService') {
-        return Object
-            .keys(goormServices)
-            .filter((key) => {
-                console.log(key);
-                return userInfo.groomService[key]
-            })
-            .map((key) => goormServices[key])
-            .join(', ');
-    }
-
-    if (answer === 'expect') {
-        return expectChallenge[userInfo.expect];
-    }
-
-    return userInfo[answer];
-};
-
-const goormServices = {
+export const goormServices = {
     edu: '구름EDU',
     level: '구름LEVEL',
     devth: '구름DEVTH',
@@ -53,9 +27,9 @@ const goormServices = {
     exp: '구름EXP',
 };
 
-const expectChallenge = [
-    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 1번 수행',
-    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 2번 수행',
-    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 3번 수행',
-    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 4번 수행'
+export const expectChallenge = [
+    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 1번 항목',
+    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 2번 항목',
+    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 3번 항목',
+    '정해진 시간 내에 오프라인 팀 챌린지 과제를 수행, 4번 항목'
 ];
