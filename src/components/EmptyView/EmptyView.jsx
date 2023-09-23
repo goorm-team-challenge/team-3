@@ -10,8 +10,6 @@ import { FormContext } from '../../App';
 import styles from './EmptyView.module.scss';
 
 const EmptyView = () => {
-	const { form } = useContext(FormContext);
-
 	return (
 		<Card center padding="none" className={cn(styles.emptyView)}>
 			<img
@@ -19,7 +17,6 @@ const EmptyView = () => {
 				src="https://statics.goorm.io/images/gds/empty_task.svg"
 				alt="empty view"
 			/>
-			{form.name}
 			<Typography color="hint" token="paragraph-sm">
 				응답한 참여자가 없습니다.
 			</Typography>
