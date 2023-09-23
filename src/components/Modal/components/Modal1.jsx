@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Button, Modal, Label, Input, Form } from '@goorm-dev/gds-challenge';
 
-import { FormContext } from '../../../App';
+import React, { useEffect, useState } from 'react';
+
+import { Button, Input, Label, Modal } from '@goorm-dev/gds-challenge';
+
+import useModalContext from '../../Context/formProvider';
 
 const Modal1 = ({ onClose, headerName }) => {
-	const { form, setForm, modal, setModal } = useContext(FormContext);
-
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
+		useModalContext();
+  
 	// name
 	const [name, setName] = useState('');
 
@@ -27,6 +30,7 @@ const Modal1 = ({ onClose, headerName }) => {
 		const input = e.target.value;
 		setName(input);
 		console.log(name);
+		updateForm('name', input);
 	};
 
 	const handlePhoneChange = (e) => {
@@ -248,12 +252,9 @@ const Modal1 = ({ onClose, headerName }) => {
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button
-					onClick={handleFormSubmit}
-					disabled={!isNextButtonEnabled()}
-				>
-					다음
-				</Button>
+
+				<Button onClick={console.log(form)} disabled={!isNextButtonEnabled()}>다음</Button>
+
 			</Modal.Footer>
 		</>
 	);
