@@ -8,10 +8,13 @@ import {
 	Typography,
 } from '@goorm-dev/gds-challenge';
 
-import { FormContext } from '../../../App';
+import useModalContext from '../../Context/formProvider';
 
 const Modal4 = ({ onClose, headerName }) => {
-	const { form, setForm, modal, setModal } = useContext(FormContext);
+	// const { form, setForm, modal, setModal } = useContext(FormContext);
+
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
+		useModalContext();
 
 	const [freeMessage, setFreeMessage] = useState(form.freeMessage);
 	const handleFormSubmit = () => {
@@ -21,13 +24,8 @@ const Modal4 = ({ onClose, headerName }) => {
 	};
 
 	const moveIndex = (index) => {
-		setForm({
-			...form,
-			freeMessage,
-		});
-		setModal({
-			index,
-		});
+		updateForm('freeMessage', freeMessage);
+		updateModalIndex(index);
 	};
 
 	return (
@@ -65,13 +63,14 @@ const Modal4 = ({ onClose, headerName }) => {
 					onClickWithIndex={(index) => {
 						return moveIndex(index);
 					}}
-					activeIndex={modal.index}
+					activeIndex={modalIndex}
 				/>
 
 				<div>
 					<Button
 						onClick={() => {
-							moveIndex(modal.index - 1);
+							moveIndex(modalIndex - 1);
+							console.log(form);
 						}}
 						color="link"
 					>

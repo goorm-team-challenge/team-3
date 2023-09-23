@@ -3,14 +3,15 @@ import cn from 'classnames';
 
 import { Modal } from '@goorm-dev/gds-challenge';
 
-import { FormContext } from '../../App';
+import useModalContext from '../Context/formProvider';
 
 import Modal1 from './components/Modal1';
 import Modal4 from './components/Modal4';
 
 const CustomModal = ({ isOpen, onClose }) => {
-	const { modal } = useContext(FormContext);
-	const curIndex = modal.index;
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
+		useModalContext();
+	const curIndex = modalIndex;
 
 	const renderComponent = () => {
 		switch (curIndex) {

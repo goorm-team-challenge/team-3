@@ -3,13 +3,14 @@ import cn from 'classnames';
 
 import { Button, Typography } from '@goorm-dev/gds-challenge';
 
-import { FormContext } from '../../App';
+import useModalContext from '../Context/formProvider';
 import CustomModal from '../Modal';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
-	const { resetStore, setModal } = useContext(FormContext);
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
+		useModalContext();
 	const [modalOpen, setModalOpen] = useState(false);
 
 	const toggle = () => {
@@ -20,13 +21,11 @@ const Header = () => {
 
 	const handleCloseModal = () => {
 		toggle();
-		resetStore();
+		resetForm();
 	};
 
 	const handleModalOpen = () => {
-		setModal({
-			index: 0,
-		});
+		updateModalIndex(0);
 		toggle();
 	};
 

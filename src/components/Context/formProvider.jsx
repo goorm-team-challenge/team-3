@@ -48,6 +48,8 @@ const useModalContext = () => {
 				[key]: value,
 			};
 		});
+
+		console.log('update Form', form);
 	};
 
 	const updateModalIndex = (value) => {
