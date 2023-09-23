@@ -1,13 +1,14 @@
-import { EmptyView, Header, ListView } from '@/components';
 import { createContext, useState } from 'react';
+
+import { EmptyView, Header, ListView } from '@/components';
 
 import styles from './App.module.scss';
 
 export const FormContext = createContext();
 
 function App() {
-	const users = localStorage.getItem("goormUsers")
-		? JSON.parse(localStorage.getItem("goormUsers"))
+	const users = localStorage.getItem('goormUsers')
+		? JSON.parse(localStorage.getItem('goormUsers'))
 		: [];
 
 	const [form, setForm] = useState({
@@ -39,10 +40,7 @@ function App() {
 
 		// 3번
 
-		expect1: '기대1',
-		expect2: '기대2',
-		expect3: '기대3',
-		expect4: '기대4',
+		expect: -1,
 
 		// 4번
 
@@ -53,9 +51,11 @@ function App() {
 			<div className={styles.App}>
 				<Header />
 				<main className={styles.main}>
-					{users.length > 0
-						? <ListView users={users} />
-						: <EmptyView />}
+					{users.length > 0 ? (
+						<ListView users={users} />
+					) : (
+						<EmptyView />
+					)}
 				</main>
 			</div>
 		</FormContext.Provider>
