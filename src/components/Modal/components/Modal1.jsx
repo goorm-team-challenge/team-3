@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Modal, Label, Input } from '@goorm-dev/gds-challenge';
+import { Button, Modal, Label, Input, Form } from '@goorm-dev/gds-challenge';
 
 import { FormContext } from '../../../App';
 
@@ -96,6 +96,14 @@ const Modal1 = ({ onClose, headerName }) => {
 		setAdChecked(newState);
 		setSnsChecked(newState);
 	};
+	// 유효성 검사 함수
+	const isEmailValid = (value) => {
+		return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value);
+	};
+
+	const isPhoneValid = (value) => {
+		return /^\d{10,11}$/.test(value);
+	};
 
 	const isNextButtonEnabled = () => {
 		return !(
@@ -140,12 +148,19 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.01012345678"
 						value={phone}
 						onChange={handlePhoneChange}
-						invalid={phone.length > 0 && !/^\d{10,11}$/.test(phone)}
+						invalid={phone.length > 0 && !isPhoneValid(phone)}
 					/>
-					{phone.length > 0 && !/^\d{10,11}$/.test(phone) && (
-						<div style={{ color: 'red' }}>
-							양식에 맞게 입력해주세요.
-						</div>
+					{phone.length > 0 && isPhoneValid(phone) ? (
+						<Form.Feedback type="valid">
+							양식에 맞게 입력되었습니다.
+						</Form.Feedback>
+					) : (
+						phone.length > 0 &&
+						!isPhoneValid(phone) && (
+							<Form.Feedback type="invalid">
+								양식에 맞게 입력해주세요.
+							</Form.Feedback>
+						)
 					)}
 					<Label required pointer>
 						이메일
@@ -155,21 +170,20 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.goormee@goorm.io"
 						value={email}
 						onChange={handleEmailChange}
-						invalid={
-							email.length > 0 &&
-							!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-								email,
-							)
-						}
+						invalid={email.length > 0 && !isEmailValid(email)}
 					/>
-					{email.length > 0 &&
-						!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-							email,
-						) && (
-							<div style={{ color: 'red' }}>
+					{email.length > 0 && isEmailValid(email) ? (
+						<Form.Feedback type="valid">
+							양식에 맞게 입력되었습니다.
+						</Form.Feedback>
+					) : (
+						email.length > 0 &&
+						!isEmailValid(email) && (
+							<Form.Feedback type="invalid">
 								양식에 맞게 입력해주세요.
-							</div>
-						)}
+							</Form.Feedback>
+						)
+					)}
 					<Input
 						type="checkbox"
 						label="전체 동의"
