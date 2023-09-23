@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 
 import { Button, Input, Label, Modal } from '@goorm-dev/gds-challenge';
@@ -7,6 +8,7 @@ import useModalContext from '../../Context/formProvider';
 const Modal1 = ({ onClose, headerName }) => {
 	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
 		useModalContext();
+  
 	// name
 	const [name, setName] = useState('');
 
@@ -37,7 +39,6 @@ const Modal1 = ({ onClose, headerName }) => {
 		console.log(phone);
 	};
 
-	// "이메일" 입력란에서 변경 사항을 처리하는 함수
 	const handleEmailChange = (e) => {
 		const input = e.target.value;
 		setEmail(input);
@@ -99,6 +100,28 @@ const Modal1 = ({ onClose, headerName }) => {
 		setAdChecked(newState);
 		setSnsChecked(newState);
 	};
+	// 유효성 검사 함수
+	const isEmailValid = (value) => {
+		return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value);
+	};
+
+	const isPhoneValid = (value) => {
+		return /^\d{10,11}$/.test(value);
+	};
+
+	const isNextButtonEnabled = () => {
+		return !(
+			name === '' ||
+			phone === '' ||
+			email === '' ||
+			!privacyChecked ||
+			(phone.length > 0 && !/^\d{10,11}$/.test(phone)) ||
+			(email.length > 0 &&
+				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
+		);
+	};
+
+	const handleFormSubmit = () => {};
 
 	return (
 		<>
@@ -129,7 +152,20 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.01012345678"
 						value={phone}
 						onChange={handlePhoneChange}
+						invalid={phone.length > 0 && !isPhoneValid(phone)}
 					/>
+					{phone.length > 0 && isPhoneValid(phone) ? (
+						<Form.Feedback type="valid">
+							양식에 맞게 입력되었습니다.
+						</Form.Feedback>
+					) : (
+						phone.length > 0 &&
+						!isPhoneValid(phone) && (
+							<Form.Feedback type="invalid">
+								양식에 맞게 입력해주세요.
+							</Form.Feedback>
+						)
+					)}
 					<Label required pointer>
 						이메일
 					</Label>
@@ -138,7 +174,20 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.goormee@goorm.io"
 						value={email}
 						onChange={handleEmailChange}
+						invalid={email.length > 0 && !isEmailValid(email)}
 					/>
+					{email.length > 0 && isEmailValid(email) ? (
+						<Form.Feedback type="valid">
+							양식에 맞게 입력되었습니다.
+						</Form.Feedback>
+					) : (
+						email.length > 0 &&
+						!isEmailValid(email) && (
+							<Form.Feedback type="invalid">
+								양식에 맞게 입력해주세요.
+							</Form.Feedback>
+						)
+					)}
 					<Input
 						type="checkbox"
 						label="전체 동의"
@@ -203,7 +252,9 @@ const Modal1 = ({ onClose, headerName }) => {
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={console.log(form)}>다음</Button>
+
+				<Button onClick={console.log(form)} disabled={!isNextButtonEnabled()}>다음</Button>
+
 			</Modal.Footer>
 		</>
 	);
