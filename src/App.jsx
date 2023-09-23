@@ -1,16 +1,14 @@
 import { createContext, useState } from 'react';
-
 import { EmptyView, Header, ListView } from '@/components';
+
 
 import styles from './App.module.scss';
 
-export const FormContext = createContext();
-
 function App() {
+
 	const users = localStorage.getItem('goormUsers')
 		? JSON.parse(localStorage.getItem('goormUsers'))
 		: [];
-
 	return (
 		<div className={styles.App}>
 			<Header />

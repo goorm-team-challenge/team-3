@@ -5,11 +5,13 @@ import { Card } from '@/components';
 
 import { Typography } from '@goorm-dev/gds-challenge';
 
-import { FormContext } from '../../App';
+import useModalContext from '../Context/formProvider';
 
 import styles from './EmptyView.module.scss';
 
 const EmptyView = () => {
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
+		useModalContext();
 	return (
 		<Card center padding="none" className={cn(styles.emptyView)}>
 			<img
