@@ -53,6 +53,7 @@ const useModalContext = () => {
 	};
 
 	const updateModalIndex = (value) => {
+		console.log(value);
 		setModalIndex(value);
 	};
 

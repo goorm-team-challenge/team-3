@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 
+import { modalContext } from '@/App';
+
 import {
 	Button,
 	CarouselIndicators,
@@ -8,17 +10,14 @@ import {
 	Typography,
 } from '@goorm-dev/gds-challenge';
 
-import useModalContext from '../../Context/formProvider';
-
 const Modal4 = ({ onClose, headerName }) => {
 	// const { form, setForm, modal, setModal } = useContext(FormContext);
 
 	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
-		useModalContext();
+		useContext(modalContext);
 
 	const [freeMessage, setFreeMessage] = useState(form.freeMessage);
 	const handleFormSubmit = () => {
-		console.log(form);
 		localStorage.setItem('goormUsers', JSON.stringify(form));
 		onClose();
 	};
@@ -31,10 +30,25 @@ const Modal4 = ({ onClose, headerName }) => {
 	return (
 		<>
 			<Modal.Header toggle={onClose}>
-				<Typography weight={700} token="h4">
+				<Typography
+					weight={700}
+					token="h3"
+					style={{
+						whiteSpace: 'pre-line',
+						fontSize: '20px',
+						lineHeight: '30px',
+					}}
+				>
 					{headerName}
 				</Typography>
-				<Typography weight={400} token="subtitle-1">
+				<Typography
+					style={{
+						fontSize: '12px',
+						lineHeight: '18px',
+					}}
+					weight={400}
+					token="subtitle-1"
+				>
 					더 좋은 챌린지가 될 수 있도록 데이터를 수집하려고 해요.
 				</Typography>
 			</Modal.Header>
@@ -51,34 +65,45 @@ const Modal4 = ({ onClose, headerName }) => {
 					}}
 				/>
 			</Modal.Body>
-			<Modal.Footer
-				style={{
-					width: '100%',
-					display: 'flex',
-					justifyContent: 'space-between',
-				}}
-			>
-				<CarouselIndicators
-					length={4}
-					onClickWithIndex={(index) => {
-						return moveIndex(index);
+			<Modal.Footer>
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between', // 하위 요소들 사이에 공간을 나눠주기
+						width: '100%', // 필요한 경우 width를 100%로 설정
 					}}
-					activeIndex={modalIndex}
-				/>
-
-				<div>
-					<Button
-						onClick={() => {
-							moveIndex(modalIndex - 1);
-							console.log(form);
+				>
+					<CarouselIndicators
+						length={4}
+						onClickWithIndex={(index) => {
+							return moveIndex(index);
 						}}
-						color="link"
-					>
-						이전
-					</Button>
-					<Button onClick={handleFormSubmit} color="primary">
-						제출하기
-					</Button>
+						activeIndex={modalIndex}
+					/>
+
+					<div>
+						<Button
+							size="lg"
+							onClick={() => {
+								moveIndex(modalIndex - 1);
+							}}
+							color="link"
+							style={{
+								marginRight: '8px',
+							}}
+						>
+							이전
+						</Button>
+						<Button
+							size="lg"
+							onClick={handleFormSubmit}
+							color="primary"
+							disabled={freeMessage?.trim().length === 0}
+						>
+							제출하기
+						</Button>
+					</div>
 				</div>
 			</Modal.Footer>
 		</>

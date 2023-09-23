@@ -2,7 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { modalContext } from '@/App';
 
-import { Button, Form, Input, Label, Modal } from '@goorm-dev/gds-challenge';
+import {
+	Button,
+	CarouselIndicators,
+	Form,
+	Input,
+	Label,
+	Modal,
+} from '@goorm-dev/gds-challenge';
 
 import useModalContext from '../../Context/formProvider';
 
@@ -123,6 +130,11 @@ const Modal1 = ({ onClose, headerName }) => {
 	};
 
 	const handleFormSubmit = () => {};
+
+	const moveIndex = (index) => {
+		// updateForm('freeMessage', freeMessage);
+		updateModalIndex(index);
+	};
 
 	return (
 		<>
@@ -252,13 +264,35 @@ const Modal1 = ({ onClose, headerName }) => {
 					있도록 리마인드 알림을 보내드려요.
 				</div>
 			</Modal.Body>
+
 			<Modal.Footer>
-				<Button
-					onClick={console.log(modalIndex)}
-					disabled={!isNextButtonEnabled()}
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between', // 하위 요소들 사이에 공간을 나눠주기
+						width: '100%', // 필요한 경우 width를 100%로 설정
+					}}
 				>
-					다음
-				</Button>
+					<CarouselIndicators
+						length={4}
+						onClickWithIndex={(index) => {
+							return moveIndex(index);
+						}}
+						activeIndex={modalIndex}
+					/>
+
+					<div>
+						<Button
+							onClick={() => {
+								moveIndex(modalIndex + 1);
+							}}
+							disabled={!isNextButtonEnabled()}
+						>
+							다음
+						</Button>
+					</div>
+				</div>
 			</Modal.Footer>
 		</>
 	);

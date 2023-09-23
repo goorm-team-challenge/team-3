@@ -1,20 +1,19 @@
 import React, { useContext, useState } from 'react';
 import cn from 'classnames';
 
-import { Modal } from '@goorm-dev/gds-challenge';
+import { modalContext } from '@/App';
 
-import useModalContext from '../Context/formProvider';
+import { Modal } from '@goorm-dev/gds-challenge';
 
 import Modal1 from './components/Modal1';
 import Modal4 from './components/Modal4';
 
 const CustomModal = ({ isOpen, onClose }) => {
 	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
-		useModalContext();
-	const curIndex = modalIndex;
+		useContext(modalContext);
 
 	const renderComponent = () => {
-		switch (curIndex) {
+		switch (modalIndex) {
 			case 0:
 				return (
 					<Modal1
