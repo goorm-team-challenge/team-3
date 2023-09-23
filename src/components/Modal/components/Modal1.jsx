@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, Modal, Label, Input } from '@goorm-dev/gds-challenge';
 
+import { FormContext } from '../../../App';
+
 const Modal1 = ({ onClose, headerName }) => {
+	const { form, setForm, modal, setModal } = useContext(FormContext);
+
 	// name
 	const [name, setName] = useState('');
 
@@ -32,7 +35,6 @@ const Modal1 = ({ onClose, headerName }) => {
 		console.log(phone);
 	};
 
-	// "이메일" 입력란에서 변경 사항을 처리하는 함수
 	const handleEmailChange = (e) => {
 		const input = e.target.value;
 		setEmail(input);
@@ -94,6 +96,17 @@ const Modal1 = ({ onClose, headerName }) => {
 		setAdChecked(newState);
 		setSnsChecked(newState);
 	};
+
+	const isNextButtonEnabled = () => {
+		return !(
+			name === '' ||
+			phone === '' ||
+			email === '' ||
+			!privacyChecked
+		);
+	};
+
+	const handleFormSubmit = () => {};
 
 	return (
 		<>
@@ -198,7 +211,12 @@ const Modal1 = ({ onClose, headerName }) => {
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button>다음</Button>
+				<Button
+					onClick={handleFormSubmit}
+					disabled={!isNextButtonEnabled()}
+				>
+					다음
+				</Button>
 			</Modal.Footer>
 		</>
 	);
