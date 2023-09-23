@@ -1,12 +1,15 @@
+import { EmptyView, Header, ListView } from '@/components';
 import { createContext, useState } from 'react';
-
-import { EmptyView, Header } from '@/components';
 
 import styles from './App.module.scss';
 
 export const FormContext = createContext();
 
 function App() {
+	const users = localStorage.getItem("goormUsers")
+		? JSON.parse(localStorage.getItem("goormUsers"))
+		: [];
+
 	const [form, setForm] = useState({
 		// 1번
 		name: '이름',
@@ -50,7 +53,9 @@ function App() {
 			<div className={styles.App}>
 				<Header />
 				<main className={styles.main}>
-					<EmptyView />
+					{users.length > 0
+						? <ListView users={users} />
+						: <EmptyView />}
 				</main>
 			</div>
 		</FormContext.Provider>
