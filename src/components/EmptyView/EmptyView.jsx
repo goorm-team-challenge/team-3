@@ -10,7 +10,7 @@ import useModalContext from '../Context/formProvider';
 import styles from './EmptyView.module.scss';
 
 const EmptyView = () => {
-	const { form, updateForm, modalIndex, updateModalIndex } =
+	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
 		useModalContext();
 	return (
 		<Card center padding="none" className={cn(styles.emptyView)}>
