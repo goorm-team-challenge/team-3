@@ -1,18 +1,21 @@
-import { Button, Collapse } from '@goorm-dev/gds-challenge';
-import { ChevronDoubleLeftIcon, ChevronUpIcon } from '@goorm-dev/gds-icons';
+import UserDetails from '../UserDetail/UserDetails';
+import { Typography } from '@goorm-dev/gds-challenge';
+
 import { Card } from '@/components';
+import React from 'react';
 
 const ListView = ({ users }) => {
 
     return (
         <>
+            <Card title='title' flat='bottom'>
+                <Typography>응답한 참여자</Typography>{" "}
+                <Typography color='primary'>{users.length}</Typography>
+            </Card>
             {users.map((user, idx) => (
-                <div key={user.name}>
-                    <Button size='lg' color='basic' iconSize='left'>참여자 { + 1}. {user.name}</Button>
-                    <Collapse isOpen={false}>
-                        <Card style={{ borderTop: 0 }} flat="both">1</Card>
-                    </Collapse>
-                </div>
+                <React.Fragment key={user.name}>
+                    <UserDetails user={user} idx={idx} total={users.length} />
+                </React.Fragment>
             ))}
         </>
     )

@@ -48,6 +48,7 @@ function App() {
 
 		freeMessage: '파이팅~~',
 	});
+	
 	return (
 		<FormContext.Provider value={{ form, setForm }}>
 			<div className={styles.App}>
