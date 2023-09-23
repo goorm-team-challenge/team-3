@@ -6,9 +6,11 @@ import styles from './App.module.scss';
 
 function App() {
 
+
 	const users = localStorage.getItem('goormUsers')
 		? JSON.parse(localStorage.getItem('goormUsers'))
 		: [];
+
 	return (
 		<div className={styles.App}>
 			<Header />
