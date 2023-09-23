@@ -102,7 +102,10 @@ const Modal1 = ({ onClose, headerName }) => {
 			name === '' ||
 			phone === '' ||
 			email === '' ||
-			!privacyChecked
+			!privacyChecked ||
+			(phone.length > 0 && !/^\d{10,11}$/.test(phone)) ||
+			(email.length > 0 &&
+				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
 		);
 	};
 
@@ -137,7 +140,13 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.01012345678"
 						value={phone}
 						onChange={handlePhoneChange}
+						invalid={phone.length > 0 && !/^\d{10,11}$/.test(phone)}
 					/>
+					{phone.length > 0 && !/^\d{10,11}$/.test(phone) && (
+						<div style={{ color: 'red' }}>
+							양식에 맞게 입력해주세요.
+						</div>
+					)}
 					<Label required pointer>
 						이메일
 					</Label>
@@ -146,7 +155,21 @@ const Modal1 = ({ onClose, headerName }) => {
 						placeholder="ex.goormee@goorm.io"
 						value={email}
 						onChange={handleEmailChange}
+						invalid={
+							email.length > 0 &&
+							!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+								email,
+							)
+						}
 					/>
+					{email.length > 0 &&
+						!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+							email,
+						) && (
+							<div style={{ color: 'red' }}>
+								양식에 맞게 입력해주세요.
+							</div>
+						)}
 					<Input
 						type="checkbox"
 						label="전체 동의"
