@@ -11,7 +11,8 @@ function App() {
 		? JSON.parse(localStorage.getItem('goormUsers'))
 		: [];
 
-	const [form, setForm] = useState({
+	const initFormState = {
+		// 디버깅용 초기값을 임의로 넣었기때문에 나중에는 다 빈값으로 초기화해야합니다.
 		// 1번
 		name: '이름',
 		phone: '01012345678',
@@ -45,9 +46,21 @@ function App() {
 		// 4번
 
 		freeMessage: '파이팅~~',
+	};
+
+	const [form, setForm] = useState(initFormState);
+	const [modal, setModal] = useState({
+		index: 0,
 	});
+
+	const resetStore = () => {
+		setForm(initFormState);
+	};
+
 	return (
-		<FormContext.Provider value={{ form, setForm }}>
+		<FormContext.Provider
+			value={{ form, setForm, modal, setModal, resetStore }}
+		>
 			<div className={styles.App}>
 				<Header />
 				<main className={styles.main}>
