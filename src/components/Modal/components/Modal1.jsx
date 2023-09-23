@@ -1,14 +1,15 @@
+import React, { useContext, useEffect, useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
+import { modalContext } from '@/App';
 
-import { Button, Input, Label, Modal } from '@goorm-dev/gds-challenge';
+import { Button, Form, Input, Label, Modal } from '@goorm-dev/gds-challenge';
 
 import useModalContext from '../../Context/formProvider';
 
 const Modal1 = ({ onClose, headerName }) => {
 	const { form, updateForm, modalIndex, updateModalIndex, resetForm } =
-		useModalContext();
-  
+		useContext(modalContext);
+
 	// name
 	const [name, setName] = useState('');
 
@@ -252,9 +253,12 @@ const Modal1 = ({ onClose, headerName }) => {
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-
-				<Button onClick={console.log(form)} disabled={!isNextButtonEnabled()}>다음</Button>
-
+				<Button
+					onClick={console.log(modalIndex)}
+					disabled={!isNextButtonEnabled()}
+				>
+					다음
+				</Button>
 			</Modal.Footer>
 		</>
 	);
